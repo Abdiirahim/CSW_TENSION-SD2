@@ -16,6 +16,8 @@ static void write_animation_cb(lv_timer_t *timer) {
     static uint16_t idx = 0;
     const char *text = "Carolina Signs & Wonders";
     lv_obj_t *label = (lv_obj_t *)lv_timer_get_user_data(timer); // Pass timer as an argument
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_48, 0);
+    
 
     if (idx < strlen(text)) {
         char buf[50];
@@ -38,6 +40,7 @@ static lv_obj_t *create_button(lv_obj_t *parent, const char *text, lv_event_cb_t
     lv_obj_t *label = lv_label_create(btn);
     lv_label_set_text(label, text);
     lv_obj_center(label);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_26, 0);
 
     return btn;
 }
@@ -83,8 +86,6 @@ void setup() {
     main_screen = lv_scr_act();
     lv_obj_t *label = lv_label_create(main_screen);
     lv_label_set_text(label, ""); // Start with an empty label
-    lv_obj_set_style_text_font(label, &lv_font_montserrat_14, 0); // Set default font
-    lv_obj_set_style_transform_zoom(label, 256, 0); // Scale font to 200%
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
 
     // Start text animation (at a slower speed of 200ms)
@@ -94,19 +95,20 @@ void setup() {
     menu_screen = lv_obj_create(NULL);
 
     lv_obj_t *btn1 = create_button(menu_screen, "Preset 1", preset1_event_cb);
-    lv_obj_align(btn1, LV_ALIGN_TOP_MID, 0, 50);
+    lv_obj_align(btn1, LV_ALIGN_TOP_MID, 0, 65);
 
     lv_obj_t *btn2 = create_button(menu_screen, "Preset 2", preset2_event_cb);
-    lv_obj_align_to(btn2, btn1, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
+    lv_obj_align_to(btn2, btn1, LV_ALIGN_OUT_BOTTOM_MID, 0, 65);
 
     lv_obj_t *btn3 = create_button(menu_screen, "Manual Adjustment", manual_adjustment_event_cb);
-    lv_obj_align_to(btn3, btn2, LV_ALIGN_OUT_BOTTOM_MID, 0, 20);
+    lv_obj_align_to(btn3, btn2, LV_ALIGN_OUT_BOTTOM_MID, 0, 65);
 
     // Preset 1 screen
     preset1_screen = lv_obj_create(NULL);
     label = lv_label_create(preset1_screen);
     lv_label_set_text(label, "2mm above the media");
     lv_obj_center(label);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_30, 0);
     create_button(preset1_screen, "Return to Menu", return_menu_event_cb);
 
     // Preset 2 screen
@@ -114,24 +116,27 @@ void setup() {
     label = lv_label_create(preset2_screen);
     lv_label_set_text(label, "4mm above the media");
     lv_obj_center(label);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_30, 0);
     create_button(preset2_screen, "Return to Menu", return_menu_event_cb);
 
     // Manual adjustment screen
     manual_screen = lv_obj_create(NULL);
     height_label = lv_label_create(manual_screen);
     lv_label_set_text(height_label, "Height: 0 mm");
-    lv_obj_align(height_label, LV_ALIGN_TOP_MID, 0, 50);
+    lv_obj_align(height_label, LV_ALIGN_TOP_MID, 0, 100);
+    lv_obj_set_style_text_font(height_label, &lv_font_montserrat_30, 0);
 
     // Increment Button
     lv_obj_t *inc_btn = create_button(manual_screen, "+ Increment", increment_event_cb);
-    lv_obj_align(inc_btn, LV_ALIGN_CENTER, -100, 0);
+    lv_obj_align(inc_btn, LV_ALIGN_CENTER, -200, 0);
 
     // Decrement Button
     lv_obj_t *dec_btn = create_button(manual_screen, "- Decrement", decrement_event_cb);
-    lv_obj_align(dec_btn, LV_ALIGN_CENTER, 100, 0);
+    lv_obj_align(dec_btn, LV_ALIGN_CENTER, 200, 0);
 
     // Return to Menu Button
-    create_button(manual_screen, "Return to Menu", return_menu_event_cb);
+    lv_obj_t *goback_btn = create_button(manual_screen, "Return to Menu", return_menu_event_cb);
+    lv_obj_align(goback_btn, LV_ALIGN_TOP_LEFT,0,0);  
 }
 
 void loop() {
