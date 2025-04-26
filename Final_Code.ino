@@ -68,10 +68,10 @@ static void preset2_event_cb(lv_event_t *e) {
     // height label does not change
 }
 
-// Home button behaves like a reverse preset (smooth motion to -40mm)
+// Home button behaves like a reverse preset (smooth motion to 40mm)
 static void home_event_cb(lv_event_t *e) {
     moveStepper(0.4 * STEPS_PER_MM, LOW);
-    total_height = -40;
+    total_height = 40;
     // height label does not change
 }
 
@@ -130,7 +130,7 @@ void setup() {
     lv_obj_t *btn3 = create_button(menu_screen, "Manual Adjustment", manual_adjustment_event_cb);
     lv_obj_align_to(btn3, btn2, LV_ALIGN_OUT_BOTTOM_MID, 0, 40);
 
-    lv_obj_t *btn4 = create_button(menu_screen, " Home (-40 mm)", home_event_cb);
+    lv_obj_t *btn4 = create_button(menu_screen, " Home (40 mm)", home_event_cb);
     lv_obj_align_to(btn4, btn3, LV_ALIGN_OUT_BOTTOM_MID, 0, 60);
 
     manual_screen = lv_obj_create(NULL);
